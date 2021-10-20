@@ -77,12 +77,12 @@ void EnumGenerator::Generate(io::Printer* printer) {
       }
       int number = descriptor_->value(i)->number();
       if (!used_number.insert(number).second) {
-          printer->Print("[pbr::OriginalName(\"$original_name$\", PreferredAlias = false)] $name$ = $number$,\n",
+          printer->Print("$name$ = $number$,\n",
              "original_name", original_name,
              "name", name,
              "number", StrCat(number));
       } else {
-          printer->Print("[pbr::OriginalName(\"$original_name$\")] $name$ = $number$,\n",
+          printer->Print("$name$ = $number$,\n",
              "original_name", original_name,
              "name", name,
              "number", StrCat(number));

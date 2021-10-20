@@ -122,13 +122,13 @@ void MessageGenerator::Generate(io::Printer* printer) {
 
   printer->Print(
     vars,
-    "$access_level$ sealed partial class $class_name$ : ");
+    "$access_level$ sealed class $class_name$ : ");
 
   if (has_extension_ranges_) {
     printer->Print(vars, "pb::IExtendableMessage<$class_name$>\n");
   }
   else {
-    printer->Print(vars, "pb::IMessage<$class_name$>\n");
+    printer->Print(vars, "pb::IMessage\n");
   }
   printer->Print("#if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE\n");
   printer->Print("    , pb::IBufferMessage\n");
@@ -171,6 +171,7 @@ void MessageGenerator::Generate(io::Printer* printer) {
       "public static pb::MessageParser<$class_name$> Parser { get { return _parser; } }\n\n");
 
   // Access the message descriptor via the relevant file descriptor or containing message descriptor.
+/*
   if (!descriptor_->containing_type()) {
     vars["descriptor_accessor"] = GetReflectionClassName(descriptor_->file())
         + ".Descriptor.MessageTypes[" + StrCat(descriptor_->index()) + "]";
@@ -192,16 +193,14 @@ void MessageGenerator::Generate(io::Printer* printer) {
     "pbr::MessageDescriptor pb::IMessage.Descriptor {\n"
     "  get { return Descriptor; }\n"
     "}\n"
-    "\n");
+    "\n");*/
 
   // Parameterless constructor and partial OnConstruction method.
-  WriteGeneratedCodeAttributes(printer);
+  //WriteGeneratedCodeAttributes(printer);
   printer->Print(
     vars,
     "public $class_name$() {\n"
-    "  OnConstruction();\n"
-    "}\n\n"
-    "partial void OnConstruction();\n\n");
+    "}\n\n");
 
   GenerateCloningCode(printer);
   GenerateFreezingCode(printer);
@@ -211,12 +210,13 @@ void MessageGenerator::Generate(io::Printer* printer) {
     const FieldDescriptor* fieldDescriptor = descriptor_->field(i);
 
     // Rats: we lose the debug comment here :(
+/*
     printer->Print(
       "/// <summary>Field number for the \"$field_name$\" field.</summary>\n"
       "public const int $field_constant_name$ = $index$;\n",
       "field_name", fieldDescriptor->name(),
       "field_constant_name", GetFieldConstantName(fieldDescriptor),
-      "index", StrCat(fieldDescriptor->number()));
+      "index", StrCat(fieldDescriptor->number()));*/
     std::unique_ptr<FieldGeneratorBase> generator(
         CreateFieldGeneratorInternal(fieldDescriptor));
     generator->GenerateMembers(printer);
@@ -265,7 +265,7 @@ void MessageGenerator::Generate(io::Printer* printer) {
   }
 
   // Standard methods
-  GenerateFrameworkMethods(printer);
+  //GenerateFrameworkMethods(printer);
   GenerateMessageSerializationMethods(printer);
   GenerateMergingMethods(printer);
 
@@ -313,7 +313,7 @@ void MessageGenerator::Generate(io::Printer* printer) {
       "#region Nested types\n"
       "/// <summary>Container for nested types declared in the $class_name$ message type.</summary>\n");
     WriteGeneratedCodeAttributes(printer);
-    printer->Print("public static partial class Types {\n");
+    printer->Print("public static class Types {\n");
     printer->Indent();
     for (int i = 0; i < descriptor_->enum_type_count(); i++) {
       EnumGenerator enumGenerator(descriptor_->enum_type(i), this->options());
@@ -426,7 +426,7 @@ void MessageGenerator::GenerateCloningCode(io::Printer* printer) {
   printer->Outdent();
   printer->Print("}\n\n");
 
-  WriteGeneratedCodeAttributes(printer);
+  //WriteGeneratedCodeAttributes(printer);
   printer->Print(
     vars,
     "public $class_name$ Clone() {\n"
@@ -509,11 +509,12 @@ void MessageGenerator::GenerateFrameworkMethods(io::Printer* printer) {
     printer->Outdent();
     printer->Print("}\n\n");
 
+/*
     WriteGeneratedCodeAttributes(printer);
     printer->Print(
         "public override string ToString() {\n"
         "  return pb::JsonFormatter.ToDiagnosticString(this);\n"
-        "}\n\n");
+        "}\n\n");*/
 }
 
 void MessageGenerator::GenerateMessageSerializationMethods(io::Printer* printer) {
@@ -608,6 +609,7 @@ void MessageGenerator::GenerateMergingMethods(io::Printer* printer) {
   std::map<std::string, std::string> vars;
   vars["class_name"] = class_name();
 
+/*
   WriteGeneratedCodeAttributes(printer);
   printer->Print(
     vars,
@@ -658,7 +660,7 @@ void MessageGenerator::GenerateMergingMethods(io::Printer* printer) {
       "_unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);\n");
 
   printer->Outdent();
-  printer->Print("}\n\n");
+  printer->Print("}\n\n");*/
 
   WriteGeneratedCodeAttributes(printer);
   printer->Print("public void MergeFrom(pb::CodedInputStream input) {\n");
