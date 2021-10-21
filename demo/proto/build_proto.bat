@@ -1,0 +1,1 @@
+.\protoc.exe .\demo.proto --csharp_out=.

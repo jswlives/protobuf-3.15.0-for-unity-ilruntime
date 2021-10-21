@@ -1,0 +1,27 @@
+syntax = "proto3";
+package demo;
+
+
+message Address{
+    string address1 = 1;
+    optional string address2 = 2;
+}
+
+enum JobType{
+    None = 0;
+    STUDENT = 1;
+}
+
+message Person{
+    int32 id1 = 1;
+    optional int32 id2 = 2;
+
+    string name1 = 3;
+    optional string name2 = 4;
+
+    Address home_addr = 5;
+    optional Address school_addr = 6;
+
+    JobType main_job = 7;
+    optional JobType second_job = 8;
+}
