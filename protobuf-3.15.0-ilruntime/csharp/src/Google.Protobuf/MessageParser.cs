@@ -163,12 +163,6 @@ namespace Google.Protobuf
         /// <returns>The parsed message.</returns>
         /// <exception cref="InvalidJsonException">The JSON does not comply with RFC 7159</exception>
         /// <exception cref="InvalidProtocolBufferException">The JSON does not represent a Protocol Buffers message correctly</exception>
-        public IMessage ParseJson(string json)
-        {
-            IMessage message = factory();
-            JsonParser.Default.Merge(message, json);
-            return message;
-        }
 
         // TODO: When we're using a C# 7.1 compiler, make this private protected.
         internal void MergeFrom(IMessage message, CodedInputStream codedInput)
@@ -218,7 +212,7 @@ namespace Google.Protobuf
     /// </p>
     /// </remarks>
     /// <typeparam name="T">The type of message to be parsed.</typeparam>
-    public sealed class MessageParser<T> : MessageParser where T : IMessage<T>
+    public sealed class MessageParser<T> : MessageParser where T : IMessage
     {
         // Implementation note: all the methods here *could* just delegate up to the base class and cast the result.
         // The current implementation avoids a virtual method call and a cast, which *may* be significant in some cases.
@@ -350,12 +344,6 @@ namespace Google.Protobuf
         /// <returns>The parsed message.</returns>
         /// <exception cref="InvalidJsonException">The JSON does not comply with RFC 7159</exception>
         /// <exception cref="InvalidProtocolBufferException">The JSON does not represent a Protocol Buffers message correctly</exception>
-        public new T ParseJson(string json)
-        {
-            T message = factory();
-            JsonParser.Default.Merge(message, json);
-            return message;
-        }
 
         /// <summary>
         /// Creates a new message parser which optionally discards unknown fields when parsing.

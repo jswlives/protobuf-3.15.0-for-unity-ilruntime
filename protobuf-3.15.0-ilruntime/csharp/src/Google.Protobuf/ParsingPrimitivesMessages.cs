@@ -138,6 +138,7 @@ namespace Google.Protobuf
             SegmentedBufferHelper.PopLimit(ref ctx.state, oldLimit);
         }
 
+/*
         public static KeyValuePair<TKey, TValue> ReadMapEntry<TKey, TValue>(ref ParseContext ctx, MapField<TKey, TValue>.Codec codec)
         {
             int length = ParsingPrimitives.ParseLength(ref ctx.buffer, ref ctx.state);
@@ -196,6 +197,7 @@ namespace Google.Protobuf
 
             return new KeyValuePair<TKey, TValue>(key, value);
         }
+*/
 
         public static void ReadGroup(ref ParseContext ctx, IMessage message)
         {

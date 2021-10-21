@@ -32,7 +32,6 @@
 
 using Google.Protobuf.Collections;
 using Google.Protobuf.Compatibility;
-using Google.Protobuf.WellKnownTypes;
 using System;
 using System.Collections.Generic;
 using System.Security;
@@ -487,6 +486,7 @@ namespace Google.Protobuf
         /// <summary>
         /// Creates a codec for a wrapper type of a class - which must be string or ByteString.
         /// </summary>
+/*
         public static FieldCodec<T> ForClassWrapper<T>(uint tag) where T : class
         {
             var nestedCodec = WrapperCodecs.GetCodec<T>();
@@ -498,12 +498,13 @@ namespace Google.Protobuf
                 value => WrapperCodecs.CalculateSize<T>(value, nestedCodec),
                 tag, 0,
                 null); // Default value for the wrapper
-        }
+        }*/
 
         /// <summary>
         /// Creates a codec for a wrapper type of a struct - which must be Int32, Int64, UInt32, UInt64,
         /// Bool, Single or Double.
         /// </summary>
+/*
         public static FieldCodec<T?> ForStructWrapper<T>(uint tag) where T : struct
         {
             var nestedCodec = WrapperCodecs.GetCodec<T>();
@@ -515,7 +516,7 @@ namespace Google.Protobuf
                 value => value == null ? 0 : WrapperCodecs.CalculateSize<T>(value.Value, nestedCodec),
                 tag, 0,
                 null); // Default value for the wrapper
-        }
+        }*/
 
         /// <summary>
         /// Helper code to create codecs for wrapper types.
@@ -525,6 +526,7 @@ namespace Google.Protobuf
         /// slightly tricky to improve. So long as we keep the public API (ForClassWrapper, ForStructWrapper) in place,
         /// we can refactor later if we come up with something cleaner.
         /// </remarks>
+/*
         private static class WrapperCodecs
         {
             private static readonly Dictionary<System.Type, object> Codecs = new Dictionary<System.Type, object>
@@ -627,7 +629,7 @@ namespace Google.Protobuf
                 int fieldLength = codec.CalculateSizeWithTag(value);
                 return CodedOutputStream.ComputeLengthSize(fieldLength) + fieldLength;
             }
-        }
+        }*/
     }
 
     internal delegate TValue ValueReader<out TValue>(ref ParseContext ctx);

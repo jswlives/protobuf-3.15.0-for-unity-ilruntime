@@ -30,7 +30,6 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion
 
-using Google.Protobuf.Reflection;
 using System.Buffers;
 using System.Collections;
 using System;
@@ -184,6 +183,9 @@ namespace Google.Protobuf
         /// </summary>
         public static bool IsInitialized(this IMessage message)
         {
+            //not support extension, because extension use reflaction --comment by shaowei 2021-10-20
+            return false;
+/*
             if (message.Descriptor.File.Syntax == Syntax.Proto3)
             {
                 return true;
@@ -236,7 +238,7 @@ namespace Google.Protobuf
                     {
                         return true;
                     }
-                });
+                });*/
         }
 
         // Implementations allowing unknown fields to be discarded.

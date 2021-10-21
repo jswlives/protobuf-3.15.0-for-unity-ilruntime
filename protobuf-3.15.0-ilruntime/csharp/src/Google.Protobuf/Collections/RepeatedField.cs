@@ -606,12 +606,6 @@ namespace Google.Protobuf.Collections
         /// Returns a string representation of this repeated field, in the same
         /// way as it would be represented by the default JSON formatter.
         /// </summary>
-        public override string ToString()
-        {
-            var writer = new StringWriter();
-            JsonFormatter.Default.WriteList(writer, this);
-            return writer.ToString();
-        }
 
         /// <summary>
         /// Gets or sets the item at the specified index.

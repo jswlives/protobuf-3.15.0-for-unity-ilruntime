@@ -31,7 +31,6 @@
 #endregion
 
 using System;
-using Google.Protobuf.Reflection;
 
 namespace Google.Protobuf
 {
@@ -66,7 +65,6 @@ namespace Google.Protobuf
         /// and for generated types this will be an explicitly-implemented member, returning the
         /// same value as the static property declared on the type.
         /// </summary>
-        MessageDescriptor Descriptor { get; }
     }
 
     /// <summary>
