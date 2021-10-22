@@ -400,7 +400,7 @@ namespace Google.Protobuf
         /// <param name="tag">The tag.</param>
         /// <param name="parser">A parser to use for the message type.</param>
         /// <returns>A codec for the given tag.</returns>
-        public static FieldCodec<T> ForMessage<T>(uint tag, MessageParser<T> parser) where T : class, IMessage<T>
+        public static FieldCodec<T> ForMessage<T>(uint tag, MessageParser<T> parser) where T : class, IMessage
         {
             return new FieldCodec<T>(
                 (ref ParseContext ctx) => 
@@ -421,6 +421,8 @@ namespace Google.Protobuf
                 },
                 (ref T v, T v2) =>
                 {
+                    return false;
+/*
                     if (v2 == null)
                     {
                         return false;
@@ -433,7 +435,7 @@ namespace Google.Protobuf
                     {
                         v.MergeFrom(v2);
                     }
-                    return true;
+                    return true;*/
                 }, 
                 message => CodedOutputStream.ComputeMessageSize(message), tag);
         }
@@ -445,7 +447,7 @@ namespace Google.Protobuf
         /// <param name="endTag">The end group tag.</param>
         /// <param name="parser">A parser to use for the group message type.</param>
         /// <returns>A codec for given tag</returns>
-        public static FieldCodec<T> ForGroup<T>(uint startTag, uint endTag, MessageParser<T> parser) where T : class, IMessage<T>
+        public static FieldCodec<T> ForGroup<T>(uint startTag, uint endTag, MessageParser<T> parser) where T : class, IMessage
         {
             return new FieldCodec<T>(
                 (ref ParseContext ctx) => 
@@ -466,6 +468,8 @@ namespace Google.Protobuf
                 },
                 (ref T v, T v2) =>
                 {
+                    return false;
+/*
                     if (v2 == null)
                     {
                         return v == null;
@@ -478,7 +482,7 @@ namespace Google.Protobuf
                     {
                         v.MergeFrom(v2);
                     }
-                    return true;
+                    return true;*/
                 }, 
                 message => CodedOutputStream.ComputeGroupSize(message), startTag, endTag);
         }

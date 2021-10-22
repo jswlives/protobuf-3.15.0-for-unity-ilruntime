@@ -24,4 +24,6 @@ message Person{
 
     JobType main_job = 7;
     optional JobType second_job = 8;
+
+    repeated Address allhomes = 9;
 }

@@ -30,47 +30,27 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion
 
-using System;
+using System.Runtime.CompilerServices;
+using System.Security;
 
-namespace Google.Protobuf
-{
-    /// <summary>
-    /// Interface for a Protocol Buffers message, supporting
-    /// basic operations required for serialization.
-    /// </summary>
-    public interface IMessage
-    {
-        /// <summary>
-        /// Merges the data from the specified coded input stream with the current message.
-        /// </summary>
-        /// <remarks>See the user guide for precise merge semantics.</remarks>
-        /// <param name="input"></param>
-        void MergeFrom(CodedInputStream input);
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
 
-        /// <summary>
-        /// Writes the data to the given coded output stream.
-        /// </summary>
-        /// <param name="output">Coded output stream to write the data to. Must not be null.</param>
-        void WriteTo(CodedOutputStream output);
+#if !NCRUNCH
+[assembly: AllowPartiallyTrustedCallers]
+#endif
 
-        /// <summary>
-        /// Calculates the size of this message in Protocol Buffer wire format, in bytes.
-        /// </summary>
-        /// <returns>The number of bytes required to write this message
-        /// to a coded output stream.</returns>
-        int CalculateSize();
+[assembly: InternalsVisibleTo("Google.Protobuf.Test, PublicKey=" +
+    "002400000480000094000000060200000024000052534131000400000100010025800fbcfc63a1" +
+    "7c66b303aae80b03a6beaa176bb6bef883be436f2a1579edd80ce23edf151a1f4ced97af83abcd" +
+    "981207041fd5b2da3b498346fcfcd94910d52f25537c4a43ce3fbe17dc7d43e6cbdb4d8f1242dc" +
+    "b6bd9b5906be74da8daa7d7280f97130f318a16c07baf118839b156299a48522f9fae2371c9665" +
+    "c5ae9cb6")]
 
-        /// <summary>
-        /// Descriptor for this message. All instances are expected to return the same descriptor,
-        /// and for generated types this will be an explicitly-implemented member, returning the
-        /// same value as the static property declared on the type.
-        /// </summary>
-    }
-
-    /// <summary>
-    /// Generic interface for a Protocol Buffers message,
-    /// where the type parameter is expected to be the same type as
-    /// the implementation class.
-    /// </summary>
-    /// <typeparam name="T">The message type.</typeparam>
-}
+[assembly: InternalsVisibleTo("Google.Protobuf.Benchmarks, PublicKey=" +
+    "002400000480000094000000060200000024000052534131000400000100010025800fbcfc63a1" +
+    "7c66b303aae80b03a6beaa176bb6bef883be436f2a1579edd80ce23edf151a1f4ced97af83abcd" +
+    "981207041fd5b2da3b498346fcfcd94910d52f25537c4a43ce3fbe17dc7d43e6cbdb4d8f1242dc" +
+    "b6bd9b5906be74da8daa7d7280f97130f318a16c07baf118839b156299a48522f9fae2371c9665" +
+    "c5ae9cb6")]
